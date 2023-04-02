@@ -6,7 +6,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +42,20 @@ public class ClientController {
 		List<Client> clientList = this.clientService.returnAllClients();
 		return clientList;
 	}
+	
+	
+	@GetMapping("/{cpf}")
+	public Client retunOneClient(@PathVariable String cpf) {
+		Client clientReturn = this.clientService.returnOneClient(cpf);
+		return clientReturn;
+	}
+	
+	@DeleteMapping("/{cpf}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void deleteClient(@PathVariable String cpf) {
+		this.clientService.deleteClient(cpf);
+	}
+	
+	
 	
 }

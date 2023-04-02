@@ -25,5 +25,15 @@ public class ClientService {
 	public List<Client> returnAllClients(){
 		return this.clientRepository.findAll();
 	}
+
+	public Client returnOneClient(String cpf) {
+		Client clientReturn = this.clientRepository.findById(cpf).get();
+		return clientReturn;
+	}
+
+	public void deleteClient(String cpf) {
+		clientRepository.deleteById(cpf);
+		
+	}
 	
 }
