@@ -15,22 +15,33 @@ public class Client {
 	@Id
 	private String cpf;
 	private String phoneNumber;
-	//private Address address;
-	private double monthlyIncome;
+	private Long monthlyIncome;
 	
-	public Client(String cpf, String phoneNumber, double monthlyIncome) {
+	//Address
+	private String cep;
+	private String street;
+	private String number;
+	
+	public Client(String cpf, String phoneNumber, Long monthlyIncome, String cep, String street, String number) {
 		this.cpf = cpf;
 		this.phoneNumber = phoneNumber;
 		this.monthlyIncome = monthlyIncome;
+		this.cep = cep;
+		this.street = street;
+		this.number = number;
+	}
+
+	public Client(String phoneNumber, Long monthlyIncome, String cep, String street, String number) {
+		super();
+		this.phoneNumber = phoneNumber;
+		this.monthlyIncome = monthlyIncome;
+		this.cep = cep;
+		this.street = street;
+		this.number = number;
 	}
 	
-	/*
-	public Client(String cpf, String phoneNumber, Address address, double monthlyIncome) {
-		this.cpf = cpf;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.monthlyIncome = monthlyIncome;
-	}
-	*/
+	
+	
+	
 	
 }
