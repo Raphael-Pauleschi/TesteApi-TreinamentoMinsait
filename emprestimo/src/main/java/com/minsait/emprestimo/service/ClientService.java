@@ -1,5 +1,7 @@
 package com.minsait.emprestimo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class ClientService {
 	public Client registerClient(Client client) {
 		Client clientReturn = this.clientRepository.save(client);
 		return clientReturn;
+	}
+	
+	public List<Client> returnAllClients(){
+		return this.clientRepository.findAll();
 	}
 	
 }
