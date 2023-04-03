@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minsait.emprestimo.entity.Loan;
+import com.minsait.emprestimo.exception.LoanCannotBeRegisterException;
+import com.minsait.emprestimo.exception.LoanNotFoundException;
 import com.minsait.emprestimo.service.LoanService;
 
 @RestController
@@ -28,10 +30,10 @@ public class LoanController {
 	}
 	
 	@PostMapping("/{cpf}/emprestimos")
-	public Loan registerLoan(@PathVariable("cpf") String cpf, @Valid @RequestBody Loan loan)
+	public Loan registerLoan(@PathVariable("cpf") String cpf, @Valid @RequestBody Loan loan) throws LoanCannotBeRegisterException
 	{
 		loan.setCpfCliente(cpf);
-		return this.loanService.registerLoan(loan);
+		return this.loanService.registerLoan(cpf,loan);
 	}
 	
 	@GetMapping("/{cpf}/emprestimos")
@@ -40,18 +42,13 @@ public class LoanController {
 	}
 	
 	@GetMapping("/{cpf}/emprestimos/{id}")
-	public Loan returnOneLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) {
+	public Loan returnOneLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) throws LoanNotFoundException {
 		return this.loanService.returnOneLoan(cpf, id);
 	}
 	
-	@PutMapping("/{cpf}/emprestimos/{id}")
-	public Loan updateLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) {
-		return null;
-	}
-	
 	@DeleteMapping("/{cpf}/emprestimos/{id}")
-	public Loan deleteLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) {
-		return null;
+	public void deleteLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) {
+		 this.loanService.deleteLoan(cpf,id);
 	}
 
 }

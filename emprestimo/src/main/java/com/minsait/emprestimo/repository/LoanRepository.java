@@ -10,5 +10,7 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
 	List<Loan> findAllByCpfCliente(String cpfCliente);
 	Loan findByIdAndCpfCliente(Long id, String cpfCliente);
+	void deleteByIdAndCpfCliente(Long id, String CpfCliente);
+
 
 }
