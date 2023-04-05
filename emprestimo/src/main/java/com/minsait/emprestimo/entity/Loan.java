@@ -27,10 +27,9 @@ public class Loan {
 	private Relation relation;
 	
 	
-	public Loan( Double valorInicial, Double valorFinal, Date dataInicial, Date dataFinal,
+	public Loan( Double valorInicial, Date dataInicial, Date dataFinal,
 			Relation relation) {
 		this.valorInicial = valorInicial;
-		this.valorFinal = valorFinal;
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
 		this.relation = relation;

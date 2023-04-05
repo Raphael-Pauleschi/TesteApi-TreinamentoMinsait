@@ -27,8 +27,8 @@ public class LoanService {
 	public Loan registerLoan(String cpf, Loan loan) throws LoanCannotBeRegisterException {
 		Client client = clientRepository.findById(cpf).get();
 
-		if ((10 * client.getMonthlyIncome()) > (calculateLimit(cpf))) {
-			loan.setValorFinal(calculateValorFinal(loan, cpf));
+		if (validateLimit(client)) {
+			loan.setValorFinal(calculateValorFinal(loan));
 			Loan loanReturn = loanRepository.save(loan);
 			return loanReturn;
 		}
@@ -36,42 +36,32 @@ public class LoanService {
 		throw new LoanCannotBeRegisterException();
 	}
 
-	public List<Loan> returnAllLoan(String cpf) {
+	public List<Loan> returnAllLoan(String cpf) { 
 		List<Loan> loanList = loanRepository.findAllByCpfCliente(cpf);
 		return loanList;
 	}
 
 	//Calcular o valor final com base no relacionamento
-	private Double calculateValorFinal(Loan loan, String cpf) {
-		Double valorFinal = 0.0;
-		
-		if (loan.getRelation() == Relation.BRONZE) {
-			valorFinal = loan.getValorInicial() * 1.8;
-		} else if (loan.getRelation() == Relation.PRATA) {
-			if(loan.getValorInicial() > 5000)
-				valorFinal = loan.getValorInicial() * 1.4;
-			else
-				valorFinal = loan.getValorInicial() * 1.6;
-		} else if (loan.getRelation() == Relation.OURO) {
-			if(returnAllLoan(cpf).size() == 1)
-				valorFinal = loan.getValorInicial() * 1.2;
-			else
-				valorFinal = loan.getValorInicial() * 1.3;
-		}
+	private Double calculateValorFinal(Loan loan) {
 
-		return valorFinal;
+		return loan.getRelation().calcularValorFinal(loan, 
+				loanRepository.findAllByCpfCliente(loan.getCpfCliente()).size() <= 1 ?
+						true : false);
 	}
 
 	//Verificar se  o limite foi ultrapassado
-	private Double calculateLimit(String cpf) {
-		Double value = 0.0;
-		List<Loan> loanList = this.returnAllLoan(cpf);
+	private boolean validateLimit(Client client) {
+		Double limitValue = 0.0;
+		List<Loan> loanList = this.returnAllLoan(client.getCpf());
 
 		for (Loan loan : loanList) {
-			value += loan.getValorInicial();
+			limitValue += loan.getValorInicial();
 		}
 
-		return value;
+		if ((10 * client.getMonthlyIncome()) > limitValue)
+		return true;
+		
+		return false;
 	}
 
 	public Loan returnOneLoan(String cpf, Long id) throws LoanNotFoundException {
