@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.entity.Client;
 import com.minsait.emprestimo.entity.Loan;
-import com.minsait.emprestimo.entity.Relation;
 import com.minsait.emprestimo.exception.LoanCannotBeRegisterException;
 import com.minsait.emprestimo.exception.LoanNotFoundException;
 import com.minsait.emprestimo.repository.ClientRepository;
@@ -28,7 +27,7 @@ public class LoanService {
 		Client client = clientRepository.findById(cpf).get();
 
 		if (validateLimit(client)) {
-			loan.setValorFinal(calculateValorFinal(loan));
+			loan.setFinalValue(calculateFinalValue(loan));
 			Loan loanReturn = loanRepository.save(loan);
 			return loanReturn;
 		}
@@ -37,15 +36,15 @@ public class LoanService {
 	}
 
 	public List<Loan> returnAllLoan(String cpf) { 
-		List<Loan> loanList = loanRepository.findAllByCpfCliente(cpf);
+		List<Loan> loanList = loanRepository.findAllByCpfClient(cpf);
 		return loanList;
 	}
 
 	//Calcular o valor final com base no relacionamento
-	private Double calculateValorFinal(Loan loan) {
+	private Double calculateFinalValue(Loan loan) {
 
-		return loan.getRelation().calcularValorFinal(loan, 
-				loanRepository.findAllByCpfCliente(loan.getCpfCliente()).size() <= 1 ?
+		return loan.getRelation().calculateFinalValue(loan, 
+				loanRepository.findAllByCpfClient(loan.getCpfClient()).size() <= 1 ?
 						true : false);
 	}
 
@@ -55,7 +54,7 @@ public class LoanService {
 		List<Loan> loanList = this.returnAllLoan(client.getCpf());
 
 		for (Loan loan : loanList) {
-			limitValue += loan.getValorInicial();
+			limitValue += loan.getInitialValue();
 		}
 
 		if ((10 * client.getMonthlyIncome()) > limitValue)
@@ -66,14 +65,14 @@ public class LoanService {
 
 	public Loan returnOneLoan(String cpf, Long id) throws LoanNotFoundException {
 		if (loanRepository.existsById(id)) {
-			Loan loanReturn = loanRepository.findByIdAndCpfCliente(id, cpf);
+			Loan loanReturn = loanRepository.findByIdAndCpfClient(id, cpf);
 			return loanReturn;
 		}
 		throw new LoanNotFoundException(id);
 	}
 
 	public void deleteLoan(String cpf, Long id) {
-		loanRepository.deleteByIdAndCpfCliente(id, cpf);
+		loanRepository.deleteByIdAndCpfClient(id, cpf);
 	}
 
 }

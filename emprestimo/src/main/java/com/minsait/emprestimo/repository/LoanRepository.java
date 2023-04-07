@@ -8,9 +8,9 @@ import com.minsait.emprestimo.entity.Loan;
 
 public interface LoanRepository extends JpaRepository<Loan, Long> {
 
-	List<Loan> findAllByCpfCliente(String cpfCliente);
-	Loan findByIdAndCpfCliente(Long id, String cpfCliente);
-	void deleteByIdAndCpfCliente(Long id, String CpfCliente);
+	List<Loan> findAllByCpfClient(String cpfClient);
+	Loan findByIdAndCpfClient(Long id, String cpfClient);
+	void deleteByIdAndCpfClient(Long id, String CpfClient);
 
 
 }

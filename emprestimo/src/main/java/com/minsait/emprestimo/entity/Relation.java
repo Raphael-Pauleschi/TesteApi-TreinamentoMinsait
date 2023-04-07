@@ -4,29 +4,29 @@ public enum Relation {
 	OURO {
 
 		@Override
-		public double calcularValorFinal(Loan loan, boolean clientHasOneLoan) {
-			return clientHasOneLoan ? loan.getValorInicial() * 1.2 : loan.getValorInicial()*1.3;
+		public double calculateFinalValue(Loan loan, boolean clientHasOneLoan) {
+			return clientHasOneLoan ? loan.getInitialValue() * 1.2 : loan.getInitialValue()*1.3;
 		}
 
 	},
 	PRATA {
 
 		@Override
-		public double calcularValorFinal(Loan loan, boolean clientHasOneLoan) {
-			return loan.getValorInicial() > 5000 ? 
-					loan.getValorInicial() * 1.4 : 
-					loan.getValorInicial() * 1.6;
+		public double calculateFinalValue(Loan loan, boolean clientHasOneLoan) {
+			return loan.getInitialValue() > 5000 ? 
+					loan.getInitialValue() * 1.4 : 
+					loan.getInitialValue() * 1.6;
 		}
 
 	},
 	BRONZE {
 
 		@Override
-		public double calcularValorFinal(Loan loan, boolean clientHasOneLoan) {
-			return loan.getValorInicial() * 1.8;
+		public double calculateFinalValue(Loan loan, boolean clientHasOneLoan) {
+			return loan.getInitialValue() * 1.8;
 		}
 
 	};
 
-	abstract public double calcularValorFinal(Loan loan, boolean clientHasOneLoan);
+	abstract public double calculateFinalValue(Loan loan, boolean clientHasOneLoan);
 }

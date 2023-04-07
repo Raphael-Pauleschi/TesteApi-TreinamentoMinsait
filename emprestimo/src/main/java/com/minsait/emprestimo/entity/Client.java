@@ -3,6 +3,8 @@ package com.minsait.emprestimo.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Client {
 	@Id
+	@CPF
 	private String cpf;
 	private String phoneNumber;
 	private Long monthlyIncome;

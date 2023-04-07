@@ -19,20 +19,19 @@ public class Loan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String cpfCliente;
-	private Double valorInicial;
-	private Double valorFinal;
-	private Date dataInicial;
-	private Date dataFinal;
+	private String cpfClient;
+	private Double initialValue;
+	private Double finalValue;
+	private Date initialDate;
+	private Date finalDate;
 	private Relation relation;
-	
-	
-	public Loan( Double valorInicial, Date dataInicial, Date dataFinal,
-			Relation relation) {
-		this.valorInicial = valorInicial;
-		this.dataInicial = dataInicial;
-		this.dataFinal = dataFinal;
+	public Loan(Double initialValue, Date initialDate, Date finalDate, Relation relation) {
+		this.initialValue = initialValue;
+		this.initialDate = initialDate;
+		this.finalDate = finalDate;
 		this.relation = relation;
 	}
+	
+	
 	
 }
