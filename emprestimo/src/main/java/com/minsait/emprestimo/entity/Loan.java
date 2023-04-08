@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,9 @@ public class Loan {
 	private String cpfClient;
 	private Double initialValue;
 	private Double finalValue;
+	@Temporal(TemporalType.DATE)
 	private Date initialDate;
+	@Temporal(TemporalType.DATE)
 	private Date finalDate;
 	private Relation relation;
 	public Loan(Double initialValue, Date initialDate, Date finalDate, Relation relation) {
