@@ -1,7 +1,7 @@
 package com.minsait.emprestimo.entity;
 
 public enum Relation {
-	OURO {
+	GOLD {
 
 		@Override
 		public double calculateFinalValue(Loan loan, boolean clientHasOneLoan) {
@@ -9,7 +9,7 @@ public enum Relation {
 		}
 
 	},
-	PRATA {
+	SILVER {
 
 		@Override
 		public double calculateFinalValue(Loan loan, boolean clientHasOneLoan) {
