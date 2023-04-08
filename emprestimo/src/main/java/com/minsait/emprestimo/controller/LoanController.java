@@ -19,7 +19,7 @@ import com.minsait.emprestimo.exception.LoanNotFoundException;
 import com.minsait.emprestimo.service.LoanService;
 
 @RestController
-@RequestMapping("api/v1/emprestimo/clients")
+@RequestMapping("api/v1/loan-manager/clients")
 public class LoanController {
 	private LoanService loanService;
 
@@ -28,24 +28,24 @@ public class LoanController {
 		this.loanService = loanService;
 	}
 	
-	@PostMapping("/{cpf}/emprestimos")
+	@PostMapping("/{cpf}/loans")
 	public Loan registerLoan(@PathVariable("cpf") String cpf, @Valid @RequestBody Loan loan) throws LoanCannotBeRegisterException
 	{
 		loan.setCpfClient(cpf);
 		return this.loanService.registerLoan(cpf,loan);
 	}
 	
-	@GetMapping("/{cpf}/emprestimos")
+	@GetMapping("/{cpf}/loans")
 	public List<Loan> returnAllLoan(@PathVariable("cpf") String cpf) {
 		return this.loanService.returnAllLoan(cpf);
 	}
 	
-	@GetMapping("/{cpf}/emprestimos/{id}")
+	@GetMapping("/{cpf}/loans/{id}")
 	public Loan returnOneLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) throws LoanNotFoundException {
 		return this.loanService.returnOneLoan(cpf, id);
 	}
 	
-	@DeleteMapping("/{cpf}/emprestimos/{id}")
+	@DeleteMapping("/{cpf}/loans/{id}")
 	public void deleteLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) {
 		 this.loanService.deleteLoan(cpf,id);
 	}

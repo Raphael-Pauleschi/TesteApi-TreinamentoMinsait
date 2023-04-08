@@ -22,7 +22,7 @@ import com.minsait.emprestimo.exception.ClientNotFoundException;
 import com.minsait.emprestimo.service.ClientService;
 
 @RestController
-@RequestMapping("api/v1/emprestimo/clients")
+@RequestMapping("api/v1/loan-manager/clients")
 public class ClientController {
 
 	private ClientService clientService;
