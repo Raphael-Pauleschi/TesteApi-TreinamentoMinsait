@@ -54,12 +54,12 @@ public class ClientService {
 			client.setPhoneNumber(clientToBeModified.getPhoneNumber());
 		}
 		
-		if (client.getStreet() == null) {
-			client.setStreet(clientToBeModified.getStreet());
+		if (client.getStreetName() == null) {
+			client.setStreetName(clientToBeModified.getStreetName());
 		}
 		
-		if(client.getNumber() == null) {
-			client.setNumber(clientToBeModified.getNumber());
+		if(client.getStreetNumber() == null) {
+			client.setStreetNumber(clientToBeModified.getStreetNumber());
 		}
 		
 		if(client.getCep()==null) {

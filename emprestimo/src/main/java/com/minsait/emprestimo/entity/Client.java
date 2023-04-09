@@ -21,26 +21,27 @@ public class Client {
 	private Long monthlyIncome;
 	
 	//Address
+
 	private String cep;
-	private String street;
-	private String number;
+	private String streetName;
+	private String streetNumber;
 	
-	public Client(String cpf, String phoneNumber, Long monthlyIncome, String cep, String street, String number) {
+	public Client(String cpf, String phoneNumber, Long monthlyIncome, String cep, String streetName, String streetNumber) {
 		this.cpf = cpf;
 		this.phoneNumber = phoneNumber;
 		this.monthlyIncome = monthlyIncome;
 		this.cep = cep;
-		this.street = street;
-		this.number = number;
+		this.streetName = streetName;
+		this.streetNumber = streetNumber;
 	}
 
-	public Client(String phoneNumber, Long monthlyIncome, String cep, String street, String number) {
+	public Client(String phoneNumber, Long monthlyIncome, String cep, String streetName, String streetNumber) {
 		super();
 		this.phoneNumber = phoneNumber;
 		this.monthlyIncome = monthlyIncome;
 		this.cep = cep;
-		this.street = street;
-		this.number = number;
+		this.streetName = streetName;
+		this.streetNumber = streetNumber;
 	}
 	
 	

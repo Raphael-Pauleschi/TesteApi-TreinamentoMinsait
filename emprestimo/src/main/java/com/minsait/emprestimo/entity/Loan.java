@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,11 +23,16 @@ public class Loan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@CPF
 	private String cpfClient;
+	
 	private Double initialValue;
 	private Double finalValue;
+	
 	@Temporal(TemporalType.DATE)
 	private Date initialDate;
+	
 	@Temporal(TemporalType.DATE)
 	private Date finalDate;
 	private Relation relation;
