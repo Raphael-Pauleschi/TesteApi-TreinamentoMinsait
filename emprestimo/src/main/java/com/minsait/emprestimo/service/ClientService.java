@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.entity.Client;
+import com.minsait.emprestimo.entity.Loan;
 import com.minsait.emprestimo.exception.ClientNotFoundException;
 import com.minsait.emprestimo.repository.ClientRepository;
+import com.minsait.emprestimo.repository.LoanRepository;
 
 @Service
 public class ClientService {
 	private final ClientRepository clientRepository;
+	private final LoanRepository loanRepository;
 
 	@Autowired
-	public ClientService(ClientRepository clientRepository) {
+	public ClientService(ClientRepository clientRepository, LoanRepository loanRepository) {
 		this.clientRepository = clientRepository;
+		this.loanRepository = loanRepository;
 	}
 
 	public Client registerClient(Client client) {
@@ -38,6 +42,10 @@ public class ClientService {
 	}
 
 	public void deleteClient(String cpf) {
+		List<Loan> clientsLoan = loanRepository.findAllByCpfClient(cpf);
+		for(Loan loan: clientsLoan) {
+			loanRepository.deleteByIdAndCpfClient(loan.getId(), cpf);
+		}
 		clientRepository.deleteById(cpf);
 
 	}
