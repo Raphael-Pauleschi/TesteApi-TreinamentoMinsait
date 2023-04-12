@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.minsait.emprestimo.entity.Loan;
+import com.minsait.emprestimo.exception.ClientNotFoundException;
 import com.minsait.emprestimo.exception.LoanCannotBeRegisterException;
 import com.minsait.emprestimo.exception.LoanNotFoundException;
 import com.minsait.emprestimo.service.LoanService;
@@ -32,19 +33,19 @@ public class LoanController {
 	
 	@PostMapping("/{cpf}/loans")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Loan registerLoan(@PathVariable("cpf") String cpf, @Valid @RequestBody Loan loan) throws LoanCannotBeRegisterException
+	public Loan registerLoan(@PathVariable("cpf") String cpf, @Valid @RequestBody Loan loan) throws LoanCannotBeRegisterException, ClientNotFoundException
 	{
 		loan.setCpfClient(cpf);
 		return this.loanService.registerLoan(cpf,loan);
 	}
 	
 	@GetMapping("/{cpf}/loans")
-	public List<Loan> returnAllLoan(@PathVariable("cpf") String cpf) {
+	public List<Loan> returnAllLoan(@PathVariable("cpf") String cpf) throws ClientNotFoundException {
 		return this.loanService.returnAllLoan(cpf);
 	}
 	
 	@GetMapping("/{cpf}/loans/{id}")
-	public Loan returnOneLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) throws LoanNotFoundException {
+	public Loan returnOneLoan(@PathVariable("cpf") String cpf, @PathVariable("id") Long id) throws LoanNotFoundException, ClientNotFoundException {
 		return this.loanService.returnOneLoan(cpf, id);
 	}
 	

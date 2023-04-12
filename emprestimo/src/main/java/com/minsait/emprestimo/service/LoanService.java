@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.minsait.emprestimo.entity.Client;
 import com.minsait.emprestimo.entity.Loan;
+import com.minsait.emprestimo.exception.ClientNotFoundException;
 import com.minsait.emprestimo.exception.LoanCannotBeRegisterException;
 import com.minsait.emprestimo.exception.LoanNotFoundException;
 import com.minsait.emprestimo.repository.ClientRepository;
@@ -25,21 +26,25 @@ public class LoanService {
 		this.clientRepository = clientRepository;
 	}
 
-	public Loan registerLoan(String cpf, Loan loan) throws LoanCannotBeRegisterException {
+	public Loan registerLoan(String cpf, Loan loan) throws LoanCannotBeRegisterException, ClientNotFoundException {
 		Client client = clientRepository.findById(cpf).get();
-
-		if (validateLimit(client)) {
+		if(client != null) {
+			if (validateLimit(client)) {
 			loan.setFinalValue(calculateFinalValue(loan));
 			Loan loanReturn = loanRepository.save(loan);
 			return loanReturn;
 		}
-
+		}
 		throw new LoanCannotBeRegisterException();
 	}
 
-	public List<Loan> returnAllLoan(String cpf) { 
+	public List<Loan> returnAllLoan(String cpf) throws ClientNotFoundException{ 
+		if(clientRepository.findById(cpf).get() != null) {
 		List<Loan> loanList = loanRepository.findAllByCpfClient(cpf);
+
 		return loanList;
+}
+	throw new ClientNotFoundException(cpf);
 	}
 
 	//Calcular o valor final com base no relacionamento
@@ -51,7 +56,7 @@ public class LoanService {
 	}
 
 	//Verificar se  o limite foi ultrapassado
-	private boolean validateLimit(Client client) {
+	private boolean validateLimit(Client client) throws ClientNotFoundException {
 		Double limitValue = 0.0;
 		List<Loan> loanList = this.returnAllLoan(client.getCpf());
 
@@ -65,12 +70,16 @@ public class LoanService {
 		return false;
 	}
 
-	public Loan returnOneLoan(String cpf, Long id) throws LoanNotFoundException {
+	public Loan returnOneLoan(String cpf, Long id) throws LoanNotFoundException, ClientNotFoundException {
+		
+		if(clientRepository.findById(cpf).get() != null) {
 		if (loanRepository.existsById(id)) {
 			Loan loanReturn = loanRepository.findByIdAndCpfClient(id, cpf);
 			return loanReturn;
 		}
 		throw new LoanNotFoundException(id);
+		}
+		throw new ClientNotFoundException(cpf);
 	}
 
 	@Transactional
