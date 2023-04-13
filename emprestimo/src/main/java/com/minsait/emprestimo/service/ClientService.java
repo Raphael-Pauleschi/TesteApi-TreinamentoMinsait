@@ -2,6 +2,8 @@ package com.minsait.emprestimo.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,7 @@ public class ClientService {
 
 	}
 
+	@Transactional
 	public void deleteClient(String cpf) {
 		List<Loan> clientsLoan = loanRepository.findAllByCpfClient(cpf);
 		for(Loan loan: clientsLoan) {

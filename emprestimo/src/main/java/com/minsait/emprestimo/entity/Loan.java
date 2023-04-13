@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -26,14 +27,16 @@ public class Loan {
 	
 	@CPF
 	private String cpfClient;
-	
+	@NotNull
 	private Double initialValue;
 	private Double finalValue;
 	
 	@Temporal(TemporalType.DATE)
+	@NotNull
 	private Date initialDate;
 	
 	@Temporal(TemporalType.DATE)
+	@NotNull
 	private Date finalDate;
 	private Relation relation;
 	public Loan(Double initialValue, Date initialDate, Date finalDate, Relation relation) {

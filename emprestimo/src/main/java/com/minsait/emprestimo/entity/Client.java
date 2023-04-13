@@ -2,6 +2,7 @@ package com.minsait.emprestimo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -17,13 +18,17 @@ public class Client {
 	@Id
 	@CPF
 	private String cpf;
+	@NotNull
 	private String phoneNumber;
+	@NotNull
 	private Long monthlyIncome;
 	
 	//Address
-
+	@NotNull
 	private String cep;
+	@NotNull
 	private String streetName;
+	@NotNull
 	private String streetNumber;
 	
 	public Client(String cpf, String phoneNumber, Long monthlyIncome, String cep, String streetName, String streetNumber) {
