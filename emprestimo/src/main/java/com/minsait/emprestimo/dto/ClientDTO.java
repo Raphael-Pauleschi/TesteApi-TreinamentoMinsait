@@ -6,6 +6,7 @@ public class ClientDTO {
 	private String phoneNumber;
 	private Long monthlyIncome;
 	private String cep;
+	private String name;
 	private String streetName;
 	private String streetNumber;
 	
@@ -15,7 +16,7 @@ public class ClientDTO {
 		ClientDTO clientDTO = new ClientDTO(
 				client.getPhoneNumber(), 
 				client.getMonthlyIncome(), client.getCep(),
-				client.getStreetName(), client.getStreetNumber()
+				client.getStreetName(), client.getStreetNumber(),client.getName()
 				);
 		return clientDTO;
 	}
@@ -24,7 +25,8 @@ public class ClientDTO {
 		Client client = new Client(
 				clientDTO.getPhoneNumber(),
 				clientDTO.getMonthlyIncome(),clientDTO.getCep(),
-				clientDTO.getStreetName(), clientDTO.getStreetNumber());
+				clientDTO.getStreetName(), clientDTO.getStreetNumber(),
+				clientDTO.getName());
 		return client;
 	}
 
@@ -46,13 +48,14 @@ public class ClientDTO {
 
 	
 	
-	public ClientDTO(String phoneNumber, Long monthlyIncome, String cep, String streetName, String streetNumber) {
+	public ClientDTO(String phoneNumber, Long monthlyIncome, String cep, String streetName, String streetNumber, String name) {
 		super();
 		this.phoneNumber = phoneNumber;
 		this.monthlyIncome = monthlyIncome;
 		this.cep = cep;
 		this.streetName = streetName;
 		this.streetNumber = streetNumber;
+		this.name = name;
 	}
 
 	public String getCep() {
@@ -77,6 +80,14 @@ public class ClientDTO {
 
 	public void setStreetNumber(String streetNumber) {
 		this.streetNumber = streetNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

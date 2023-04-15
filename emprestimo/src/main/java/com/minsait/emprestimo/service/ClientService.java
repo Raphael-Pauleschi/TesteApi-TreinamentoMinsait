@@ -67,6 +67,7 @@ public class ClientService {
 		client.setStreetNumber(
 				client.getStreetNumber() == null ? clientToBeModified.getStreetNumber() : client.getStreetNumber());
 		client.setCep(client.getCep() == null ? clientToBeModified.getCep() : client.getCep());
+		client.setName(client.getName() == null ? clientToBeModified.getName(): client.getName());
 
 		return this.clientRepository.save(client);
 	}
